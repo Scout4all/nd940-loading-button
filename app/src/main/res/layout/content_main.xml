@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="viewModel"
+            type="com.udacity.MainActivityViewModel" />
+    </data>
+<androidx.constraintlayout.motion.widget.MotionLayout
+    android:id="@+id/main_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".MainActivity"
+    tools:showIn="@layout/activity_main"
+    app:layoutDescription="@xml/content_main_scene">
+    <ImageView
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:id="@+id/download_image"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/baseline_cloud_download_24"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:ignore="ContentDescription" />
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/download_image"
+        app:layout_constraintStart_toStartOf="parent"
+        android:id="@+id/radio_group"
+
+        >
+        <RadioButton
+            android:id="@+id/glide"
+            style="@style/radio_style"
+            android:visibility="visible"
+            android:text="@string/glide_radio_text"
+            android:onClick="@{(v)->viewModel.setUrl(0)}"
+           />
+
+        <RadioButton
+            android:id="@+id/udacityRepo"
+            style="@style/radio_style"
+            android:minHeight="48dp"
+            android:onClick="@{(v)->viewModel.setUrl(1)}"
+            android:text="@string/load_app_radio_text" />
+        <RadioButton
+            android:id="@+id/retrofit"
+            android:text="@string/retrofit_radio_text"
+            style="@style/radio_style"
+            android:onClick="@{(v)->viewModel.setUrl(2)}"
+             />
+
+
+    </RadioGroup>
+
+
+    <com.udacity.uicomponents.LoadingButton
+        android:id="@+id/custom_button"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_margin="20dp"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/radio_group"
+        app:loading_btn_text="@string/button_name"
+        app:loading_btn_text_progress="@string/button_loading"
+        app:loading_btn_text_done="@string/button_done"
+        app:loading_btn_text_size="20sp"
+        app:loading_btn_circle_color="@color/white"
+
+
+        app:layout_constraintVertical_bias="1.0" />
+
+</androidx.constraintlayout.motion.widget.MotionLayout>
+</layout>

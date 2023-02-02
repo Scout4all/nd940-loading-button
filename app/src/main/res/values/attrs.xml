@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="LoadingButton">
+        <attr name="loading_btn_bg_color" format="color" />
+        <attr name="loading_btn_progress_color" format="color" />
+        <attr name="loading_btn_done_color" format="color" />
+        <attr name="loading_btn_circle_color" format="color" />
+        <attr name="loading_btn_text_color" format="color" />
+        <attr name="loading_btn_text" format="string" />
+        <attr name="loading_btn_text_size" format="dimension" />
+        <attr name="loading_btn_text_done" format="string" />
+        <attr name="loading_btn_text_progress" format="string" />
+        <attr name="loading_btn_corner_radius" format="dimension" />
+        <attr name="loading_btn_disable_progress" format="boolean" />
+        <attr name="loading_btn_file_finished" format="boolean" />
+    </declare-styleable>
+</resources>
