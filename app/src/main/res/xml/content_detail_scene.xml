@@ -1,4 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) 2023.
+  ~
+  ~  Developed by : Bigad Aboubakr
+  ~  Developer website : http://bigad.me
+  ~  Developer github : https://github.com/Scout4all
+  ~  Developer Email : bigad@bigad.me
+  -->
+
 <MotionScene xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
@@ -15,10 +24,10 @@
             android:id="@+id/file_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:alpha="0.0"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/file_name_label"
-            app:layout_constraintTop_toTopOf="parent"
-            android:alpha="0.0"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <Constraint
             android:id="@+id/file_status_label"
@@ -33,22 +42,19 @@
             android:id="@+id/file_status"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:alpha="0.0"
             android:text="@{viewModel.fileStatus}"
             app:layout_constraintBaseline_toBaselineOf="@+id/file_status_label"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/file_status_label"
-            android:alpha="0.0"
-             />
+            app:layout_constraintStart_toEndOf="@id/file_status_label" />
 
         <Constraint
             android:id="@+id/back_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            />
-
+            app:layout_constraintStart_toStartOf="parent" />
 
 
     </ConstraintSet>
@@ -66,10 +72,10 @@
             android:id="@+id/file_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:alpha="1.0"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/file_name_label"
-            app:layout_constraintTop_toTopOf="parent"
-            android:alpha="1.0"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <Constraint
             android:id="@+id/file_status_label"
@@ -78,33 +84,30 @@
             app:layout_constraintEnd_toStartOf="@id/file_status"
             app:layout_constraintHorizontal_chainStyle="spread"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/file_name_label" />
+            app:layout_constraintTop_toBottomOf="@id/file_name" />
 
         <Constraint
             android:id="@+id/file_status"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:alpha="1.0"
             android:text="@{viewModel.fileStatus}"
             app:layout_constraintBaseline_toBaselineOf="@+id/file_status_label"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/file_status_label"
-            android:alpha="1.0"
-            />
+            app:layout_constraintStart_toEndOf="@id/file_status_label" />
         <Constraint
             android:id="@+id/back_btn"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintVertical_bias="1.0"
-            />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintVertical_bias="1.0" />
     </ConstraintSet>
 
     <Transition
         app:constraintSetEnd="@id/end"
         app:constraintSetStart="@+id/start"
-        app:duration="2000">
-    </Transition>
+        app:duration="2000"></Transition>
 
 </MotionScene>

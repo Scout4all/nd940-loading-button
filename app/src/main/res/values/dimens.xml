@@ -1,3 +1,12 @@
+<!--
+  ~ Copyright (c) 2023.
+  ~
+  ~  Developed by : Bigad Aboubakr
+  ~  Developer website : http://bigad.me
+  ~  Developer github : https://github.com/Scout4all
+  ~  Developer Email : bigad@bigad.me
+  -->
+
 <resources>
     <dimen name="fab_margin">16dp</dimen>
 
@@ -10,8 +19,8 @@
     <dimen name="spacing_big">24dp</dimen>
     <dimen name="spacing_very_big">32</dimen>
 
-    <dimen name="font_size_small">14sp</dimen>
-    <dimen name="font_size_normal">16sp</dimen>
-    <dimen name="font_size_big">18sp</dimen>
+    <dimen name="font_size_small">16sp</dimen>
+    <dimen name="font_size_normal">18sp</dimen>
+    <dimen name="font_size_big">20sp</dimen>
     <dimen name="font_size_vey_big">24sp</dimen>
 </resources>

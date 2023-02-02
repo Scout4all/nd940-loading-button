@@ -1,3 +1,12 @@
+/*
+ * Copyright (c) 2023.
+ *
+ *  Developed by : Bigad Aboubakr
+ *  Developer website : http://bigad.me
+ *  Developer github : https://github.com/Scout4all
+ *  Developer Email : bigad@bigad.me
+ */
+
 package com.udacity.uicomponents
 
 import android.animation.AnimatorInflater
@@ -16,7 +25,7 @@ import kotlin.properties.Delegates
 
 class LoadingButton @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
-) : View(context, attrs, defStyleAttr)  {
+) : View(context, attrs, defStyleAttr) {
     init {
         isClickable = true
 
@@ -42,7 +51,7 @@ class LoadingButton @JvmOverloads constructor(
     @Volatile
     private var progress: Double = 0.0
     private lateinit var valueAnimator: ValueAnimator
-      var buttonState: ButtonState by Delegates.observable<ButtonState>(ButtonState.Initial) { p, old, new ->
+    var buttonState: ButtonState by Delegates.observable<ButtonState>(ButtonState.Initial) { p, old, new ->
     }
 
 
@@ -78,8 +87,10 @@ class LoadingButton @JvmOverloads constructor(
             loadingBtnCircleColor =
                 getColor(R.styleable.LoadingButton_loading_btn_circle_color, Color.YELLOW)
             loadingBtnDoneColor =
-                getColor(R.styleable.LoadingButton_loading_btn_done_color,
-                    ContextCompat.getColor(context, R.color.download_success))
+                getColor(
+                    R.styleable.LoadingButton_loading_btn_done_color,
+                    ContextCompat.getColor(context, R.color.download_success)
+                )
             loadingBtnTextColor = getColor(
                 R.styleable.LoadingButton_loading_btn_text_color,
                 ContextCompat.getColor(context, R.color.white)
@@ -129,7 +140,7 @@ class LoadingButton @JvmOverloads constructor(
 
     override fun performClick(): Boolean {
         super.performClick()
-        if(buttonState== ButtonState.Loading) {
+        if (buttonState == ButtonState.Loading) {
             animation()
         }
         return true
@@ -154,9 +165,9 @@ class LoadingButton @JvmOverloads constructor(
     }
 
     private fun drawRectangle(canvas: Canvas?) {
-        if(buttonState == ButtonState.Completed){
+        if (buttonState == ButtonState.Completed) {
             paint.color = loadingBtnDoneColor
-        }else {
+        } else {
             paint.color = loadingBtnBgColor
         }
         canvas?.drawRoundRect(

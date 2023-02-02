@@ -1,3 +1,12 @@
+/*
+ * Copyright (c) 2023.
+ *
+ *  Developed by : Bigad Aboubakr
+ *  Developer website : http://bigad.me
+ *  Developer github : https://github.com/Scout4all
+ *  Developer Email : bigad@bigad.me
+ */
+
 package com.udacity
 
 import android.app.Application
@@ -10,6 +19,8 @@ import android.content.IntentFilter
 import android.net.Uri
 import android.os.Environment
 import android.util.Log
+import android.view.View
+import android.webkit.URLUtil
 import android.widget.RadioGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -18,22 +29,34 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.udacity.helper.DownloadManagerHelper
 import com.udacity.notification.sendNotification
-import kotlin.collections.ArrayList
 
 
 class MainActivityViewModel(private val app: Application) : AndroidViewModel(app) {
 
-    val filesList : ArrayList<DownloadFileData> = arrayListOf(
-        DownloadFileData(app.resources.getString(R.string.glide_radio_text) ,"https://github.com/bumptech/glide/archive/refs/tags/v4.14.2.zip",0),
-        DownloadFileData(app.resources.getString(R.string.load_app_radio_text),"https://github.com/udacity/nd940-c3-advanced-android-programming-project-starter/archive/master.zip",1),
-        DownloadFileData( app.resources.getString(R.string.retrofit_radio_text),"https://github.com/square/retrofit/archive/refs/tags/2.9.0.zip",2),
+    val filesList: ArrayList<DownloadFileData> = arrayListOf(
+        DownloadFileData(
+            app.resources.getString(R.string.glide_radio_text),
+            "https://github.com/bumptech/glide/archive/refs/tags/v4.14.2.zip",
+            0
+        ),
+        DownloadFileData(
+            app.resources.getString(R.string.load_app_radio_text),
+            "https://github.com/udacity/nd940-c3-advanced-android-programming-project-starter/archive/master.zip",
+            1
+        ),
+        DownloadFileData(
+            app.resources.getString(R.string.retrofit_radio_text),
+            "https://github.com/square/retrofit/archive/refs/tags/2.9.0.zip",
+            2
+        ),
     )
 
     private val _selectedFile = MutableLiveData<DownloadFileData>()
     val selectedFile: LiveData<DownloadFileData>
         get() = _selectedFile
 
-     var customUrl = MutableLiveData<String> ("https://github.com/Scout4all/nd940-asteroid-radar/archive/refs/tags/v1.0-stable.zip")
+    var customUrl =
+        MutableLiveData<String>("https://github.com/Scout4all/nd940-asteroid-radar/archive/refs/tags/v1.0-stable.zip")
 
     private val _fileDownloadedState = MutableLiveData(false)
     val fileDownloadedState: LiveData<Boolean>
@@ -51,7 +74,8 @@ class MainActivityViewModel(private val app: Application) : AndroidViewModel(app
     private val receiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
 
-            downloadStatus = DownloadManagerHelper.help.getDownloadStatus(downloadManager,downloadID)
+            downloadStatus =
+                DownloadManagerHelper.help.getDownloadStatus(downloadManager, downloadID)
 
 //            val id = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1)
             _fileDownloadedState.value = true
@@ -59,13 +83,12 @@ class MainActivityViewModel(private val app: Application) : AndroidViewModel(app
                 app,
                 NotificationManager::class.java
             ) as NotificationManager
-                notificationManager.sendNotification(
-                    app,
-                      downloadStatus,
-
-                    selectedFile.value!!.fileName,
-                    selectedFile.value!!.fileIndex
-                )
+            notificationManager.sendNotification(
+                app,
+                downloadStatus,
+                selectedFile.value!!.fileName,
+                selectedFile.value!!.fileIndex
+            )
 
             _fileDownloadedState.value = false
         }
@@ -100,37 +123,43 @@ class MainActivityViewModel(private val app: Application) : AndroidViewModel(app
             downloadManager.enqueue(request)// enqueue puts the download request in the queue.
 
 
-
     }
 
 
-    fun getViewB(radioGroup : RadioGroup , selectedId : Int) {
-        when(selectedId){
+    fun getViewB( selectedId: Int) {
+        when (selectedId) {
             R.id.glide_radio_btn -> _selectedFile.value = filesList.get(0)
-            R.id.udacity_repo_radio_btn -> _selectedFile.value =filesList.get(1)
+            R.id.udacity_repo_radio_btn -> _selectedFile.value = filesList.get(1)
             R.id.retrofit_radio_btn -> _selectedFile.value = filesList.get(2)
             R.id.other_link_radio_btn -> {
-                if(!customUrl.value.isNullOrEmpty()) {
                     filesList.add(3, DownloadFileData("Custom file", customUrl.value!!, 3))
                     _selectedFile.value = filesList.get(3)
-                }else{
-                    _selectedFile.value = DownloadFileData(fileIndex = -1)
-                }
-                Log.w("custom file", _selectedFile.value?.fileUrl!!)
             }
-            else ->  _selectedFile.value = DownloadFileData(fileIndex = -1)
+
         }
 
     }
 
+    //check custom url value
+    fun traceCustomUrl(value : CharSequence){
+        if(value.trim().isNullOrEmpty() ||  !URLUtil.isValidUrl(value.trim().toString())){
+            _selectedFile.value = DownloadFileData(fileIndex = -1)
+        }
+
+    }
 
 
     override fun onCleared() {
         super.onCleared()
         _selectedFile.value = DownloadFileData(fileIndex = -1)
 
-      downloadStatus  = "Pending"
+        downloadStatus = "Pending"
     }
 
 }
-data class DownloadFileData(val fileName:String="", val fileUrl :String="",val fileIndex :Int = -1)
+
+data class DownloadFileData(
+    val fileName: String = "",
+    val fileUrl: String = "",
+    val fileIndex: Int = -1
+)

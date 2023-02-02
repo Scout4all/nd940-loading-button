@@ -1,4 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) 2023.
+  ~
+  ~  Developed by : Bigad Aboubakr
+  ~  Developer website : http://bigad.me
+  ~  Developer github : https://github.com/Scout4all
+  ~  Developer Email : bigad@bigad.me
+  -->
+
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
@@ -11,10 +20,10 @@
     </data>
 
     <androidx.constraintlayout.motion.widget.MotionLayout
+        android:id="@+id/content_detail_motion_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="@dimen/spacing_normal"
-        android:id="@+id/content_detail_motion_layout"
         app:layoutDescription="@xml/content_detail_scene"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         tools:context=".DetailActivity"
@@ -63,9 +72,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:padding="@dimen/spacing_small"
+            android:text="@{viewModel.fileStatus}"
             android:textSize="@dimen/font_size_normal"
             android:textStyle="bold"
-            android:text="@{viewModel.fileStatus}"
             app:layout_constraintBaseline_toBaselineOf="@+id/file_status_label"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/file_status_label"
@@ -75,14 +84,14 @@
             android:id="@+id/back_btn"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@string/back"
-            android:textStyle="bold"
-            android:textColor="@color/white"
             android:backgroundTint="@color/colorPrimary"
+            android:text="@string/back"
+            android:textColor="@color/white"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintVertical_bias="1.0"/>
+            app:layout_constraintVertical_bias="1.0" />
 
 
     </androidx.constraintlayout.motion.widget.MotionLayout>

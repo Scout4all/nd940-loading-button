@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<animator
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<!--
+  ~ Copyright (c) 2023.
+  ~
+  ~  Developed by : Bigad Aboubakr
+  ~  Developer website : http://bigad.me
+  ~  Developer github : https://github.com/Scout4all
+  ~  Developer Email : bigad@bigad.me
+  -->
+
+<animator xmlns:android="http://schemas.android.com/apk/res/android"
     android:duration="2000"
     android:interpolator="@android:anim/accelerate_decelerate_interpolator"
     android:valueFrom="0f"

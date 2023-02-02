@@ -1,9 +1,17 @@
+/*
+ * Copyright (c) 2023.
+ *
+ *  Developed by : Bigad Aboubakr
+ *  Developer website : http://bigad.me
+ *  Developer github : https://github.com/Scout4all
+ *  Developer Email : bigad@bigad.me
+ */
+
 package com.udacity
 
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.constraintlayout.motion.widget.MotionLayout
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.udacity.databinding.ActivityDetailBinding
@@ -43,7 +51,7 @@ class DetailActivity : AppCompatActivity() {
         }
 
         binding.contentDetail.backBtn.setOnClickListener {
-            startActivity(Intent(this,MainActivity::class.java))
+            startActivity(Intent(this, MainActivity::class.java))
         }
 
     }
@@ -51,8 +59,7 @@ class DetailActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
 //start animation
-        // Use
-        Timer().schedule(500){
+        Timer().schedule(1000) {
             binding.contentDetail.contentDetailMotionLayout.transitionToEnd()
         }
 

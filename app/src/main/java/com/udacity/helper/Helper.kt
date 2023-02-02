@@ -1,3 +1,12 @@
+/*
+ * Copyright (c) 2023.
+ *
+ *  Developed by : Bigad Aboubakr
+ *  Developer website : http://bigad.me
+ *  Developer github : https://github.com/Scout4all
+ *  Developer Email : bigad@bigad.me
+ */
+
 package com.udacity.helper
 
 import android.app.Application
@@ -7,7 +16,7 @@ import android.util.Log
 import android.widget.Toast
 
 class Helper {
-    fun detectCursor(downloadManager : DownloadManager, downloadID : Long, app : Application){
+    fun detectCursor(downloadManager: DownloadManager, downloadID: Long, app: Application) {
         val c: Cursor = downloadManager.query(DownloadManager.Query().setFilterById(downloadID))
 
         if (c == null) {
@@ -56,10 +65,10 @@ class Helper {
         return msg
     }
 
-    companion object{
-       private lateinit var instance : Helper
+    companion object {
+        private lateinit var instance: Helper
         fun getInstance(): Helper {
-            if(instance == null){
+            if (instance == null) {
                 instance = Helper()
             }
             return instance

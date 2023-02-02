@@ -1,44 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) 2023.
+  ~
+  ~  Developed by : Bigad Aboubakr
+  ~  Developer website : http://bigad.me
+  ~  Developer github : https://github.com/Scout4all
+  ~  Developer Email : bigad@bigad.me
+  -->
+
 <MotionScene xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <ConstraintSet android:id="@+id/start">
-        <Constraint android:id="@+id/download_image"
+        <Constraint
+            android:id="@+id/download_image"
             android:layout_width="250dp"
             android:layout_height="250dp"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-             />
-        <Constraint android:id="@+id/other_link_et"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+        <Constraint
+            android:id="@+id/other_link_et"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:visibility="gone"
-            android:layout_marginEnd="16dp"
             android:layout_marginStart="16dp"
-            app:layout_constraintTop_toBottomOf="@id/radio_group"
+            android:layout_marginEnd="16dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@id/custom_button"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/custom_button"/>
+            app:layout_constraintTop_toBottomOf="@id/radio_group" />
     </ConstraintSet>
 
     <ConstraintSet android:id="@+id/end">
-        <Constraint android:id="@+id/download_image"
+        <Constraint
+            android:id="@+id/download_image"
             android:layout_width="200dp"
             android:layout_height="200dp"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            />
-        <Constraint android:id="@id/other_link_et"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+        <Constraint
+            android:id="@id/other_link_et"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:visibility="visible"
+            android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
             android:focusable="false"
-            android:layout_marginStart="16dp"
-            app:layout_constraintTop_toBottomOf="@id/radio_group"
+            android:visibility="visible"
+            app:layout_constraintBottom_toTopOf="@id/custom_button"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/custom_button"/>
+            app:layout_constraintTop_toBottomOf="@id/radio_group" />
     </ConstraintSet>
 
     <Transition
@@ -46,31 +57,31 @@
         app:constraintSetStart="@+id/start"
         app:duration="500">
         <OnClick
-            app:targetId="@+id/other_link_radio_btn"
-            app:clickAction="transitionToEnd"/>
+            app:clickAction="transitionToEnd"
+            app:targetId="@+id/other_link_radio_btn" />
     </Transition>
     <Transition
         app:constraintSetEnd="@id/end"
         app:constraintSetStart="@+id/start"
         app:duration="500">
         <OnClick
-            app:targetId="@+id/glide_radio_btn"
-            app:clickAction="transitionToStart"/>
+            app:clickAction="transitionToStart"
+            app:targetId="@+id/glide_radio_btn" />
     </Transition>
     <Transition
         app:constraintSetEnd="@id/end"
         app:constraintSetStart="@+id/start"
         app:duration="500">
         <OnClick
-            app:targetId="@+id/udacity_repo_radio_btn"
-            app:clickAction="transitionToStart"/>
+            app:clickAction="transitionToStart"
+            app:targetId="@+id/udacity_repo_radio_btn" />
     </Transition>
     <Transition
         app:constraintSetEnd="@id/end"
         app:constraintSetStart="@+id/start"
         app:duration="500">
         <OnClick
-            app:targetId="@+id/retrofit_radio_btn"
-            app:clickAction="transitionToStart"/>
+            app:clickAction="transitionToStart"
+            app:targetId="@+id/retrofit_radio_btn" />
     </Transition>
 </MotionScene>
