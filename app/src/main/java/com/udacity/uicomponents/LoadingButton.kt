@@ -6,11 +6,9 @@ import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
 import android.view.View
+import android.view.animation.Animation
 import androidx.core.content.ContextCompat
 import androidx.core.content.withStyledAttributes
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleOwner
-import com.udacity.ButtonState
 import com.udacity.R
 import kotlin.math.min
 import kotlin.properties.Delegates
@@ -44,7 +42,7 @@ class LoadingButton @JvmOverloads constructor(
     @Volatile
     private var progress: Double = 0.0
     private lateinit var valueAnimator: ValueAnimator
-    private var buttonState: ButtonState by Delegates.observable<ButtonState>(ButtonState.Initial) { p, old, new ->
+      var buttonState: ButtonState by Delegates.observable<ButtonState>(ButtonState.Initial) { p, old, new ->
     }
 
 
@@ -55,12 +53,14 @@ class LoadingButton @JvmOverloads constructor(
         requestLayout()
     }
 
+
     private fun initValueAnimator() {
         valueAnimator = AnimatorInflater.loadAnimator(
             context,
             R.animator.loading_animation
         ) as ValueAnimator
         valueAnimator.duration = loadingButtonLoadDuration
+        valueAnimator.repeatCount = Animation.INFINITE
         valueAnimator.addUpdateListener(updateListener)
     }
 
@@ -76,9 +76,10 @@ class LoadingButton @JvmOverloads constructor(
                 ContextCompat.getColor(context, R.color.colorAccent)
             )
             loadingBtnCircleColor =
-                getColor(R.styleable.LoadingButton_loading_btn_circle_color, Color.GREEN)
+                getColor(R.styleable.LoadingButton_loading_btn_circle_color, Color.YELLOW)
             loadingBtnDoneColor =
-                getColor(R.styleable.LoadingButton_loading_btn_done_color, Color.GREEN)
+                getColor(R.styleable.LoadingButton_loading_btn_done_color,
+                    ContextCompat.getColor(context, R.color.download_success))
             loadingBtnTextColor = getColor(
                 R.styleable.LoadingButton_loading_btn_text_color,
                 ContextCompat.getColor(context, R.color.white)
@@ -128,8 +129,9 @@ class LoadingButton @JvmOverloads constructor(
 
     override fun performClick(): Boolean {
         super.performClick()
-        buttonState = ButtonState.Loading
-        animation()
+        if(buttonState== ButtonState.Loading) {
+            animation()
+        }
         return true
     }
 
@@ -152,7 +154,11 @@ class LoadingButton @JvmOverloads constructor(
     }
 
     private fun drawRectangle(canvas: Canvas?) {
-        paint.color = loadingBtnBgColor
+        if(buttonState == ButtonState.Completed){
+            paint.color = loadingBtnDoneColor
+        }else {
+            paint.color = loadingBtnBgColor
+        }
         canvas?.drawRoundRect(
             0f,
             0f,
@@ -176,6 +182,7 @@ class LoadingButton @JvmOverloads constructor(
             )
 
         }
+
         if (isEnabled == false) {
             paint.color = Color.GRAY
             paint.alpha = 95
@@ -190,6 +197,7 @@ class LoadingButton @JvmOverloads constructor(
                 loadingButtonTextProgress
             } else if (buttonState == ButtonState.Completed && loadingButtonDisableProgress == false) {
                 loadingButtonTextDone
+
             } else {
                 loadingBtnText
             }

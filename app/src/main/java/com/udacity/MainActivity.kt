@@ -1,27 +1,20 @@
 package com.udacity
 
-import android.app.NotificationChannel
-import android.app.NotificationManager
-import android.content.Context
-import android.graphics.Color
-import android.os.Build
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.udacity.databinding.ActivityMainBinding
+import com.udacity.uicomponents.ButtonState
 import kotlinx.android.synthetic.main.activity_detail.*
-import kotlinx.android.synthetic.main.content_main.*
 
 
 class MainActivity : AppCompatActivity() {
-
-
 
 
     lateinit var binding: ActivityMainBinding
@@ -35,20 +28,35 @@ class MainActivity : AppCompatActivity() {
 
         viewModel = ViewModelProvider(this).get(MainActivityViewModel::class.java)
         binding.viewModel = viewModel
+
+        //Testing change custom button attributes from activity
         binding.contentMain.customButton.loadingBtnBgColor = getColor(R.color.colorPrimaryDark)
         binding.contentMain.customButton.loadingBtnProgressColor = getColor(R.color.colorPrimary)
         binding.contentMain.customButton.loadingBtnTextColor = getColor(R.color.white)
 
-        binding.contentMain.customButton.setOnClickListener {
-            if (viewModel.selectedLibrary.value == -1) {
-//                Toast.makeText(this, "No file selected to Download", Toast.LENGTH_SHORT).show()
-            } else {
-                viewModel.download()
-                viewModel.downloaded.observe(this, Observer {
-                    if(it){
-                        binding.contentMain.customButton.hasCompletedDownload()
-                    }
-                })
+
+//check button state if completed move to detail activity
+        if (binding.contentMain.customButton.buttonState == ButtonState.Completed) {
+            binding.contentMain.customButton.setOnClickListener {
+                val intent = Intent(this, DetailActivity::class.java)
+                intent.putExtra("status", viewModel.downloadStatus)
+                intent.putExtra("fileName", viewModel.selectedFile.value!!.fileName)
+                startActivity(intent)
+            }
+
+        } else {
+            //if button is not complete add download click listener
+            binding.contentMain.customButton.setOnClickListener {
+                //check if file selected in view model or not
+                if (viewModel.selectedFile.value?.fileIndex == -1) {
+                    Toast.makeText(this, "No file selected to Download", Toast.LENGTH_SHORT).show()
+                } else {
+                    //if file selected change button state to loading to animate
+                    binding.contentMain.customButton.buttonState = ButtonState.Loading
+                    // start download file
+                    viewModel.download()
+
+                }
             }
         }
 
@@ -57,13 +65,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun observers() {
-        viewModel.selectedLibrary.observe(this) {
-            Log.w("act", it.toString())
-            if (it != -1) {
-                binding.contentMain.customButton.visibility = View.VISIBLE
-            }
 
-        }
+        // observe if file downloaded in view model to change button state
+        viewModel.fileDownloadedState.observe(this, Observer { downloadedStatus ->
+            if (downloadedStatus) {
+                binding.contentMain.customButton.hasCompletedDownload()
+            }
+        })
     }
 
 

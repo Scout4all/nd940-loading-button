@@ -30,50 +30,62 @@
         app:layout_constraintTop_toBottomOf="@id/download_image"
         app:layout_constraintStart_toStartOf="parent"
         android:id="@+id/radio_group"
-
+    android:onCheckedChanged="@{(v,id)->viewModel.getViewB(v,id)}"
         >
         <RadioButton
-            android:id="@+id/glide"
+            android:id="@+id/glide_radio_btn"
             style="@style/radio_style"
             android:visibility="visible"
             android:text="@string/glide_radio_text"
-            android:onClick="@{(v)->viewModel.setUrl(0)}"
+
            />
 
         <RadioButton
-            android:id="@+id/udacityRepo"
+            android:id="@+id/udacity_repo_radio_btn"
             style="@style/radio_style"
             android:minHeight="48dp"
-            android:onClick="@{(v)->viewModel.setUrl(1)}"
+
             android:text="@string/load_app_radio_text" />
         <RadioButton
-            android:id="@+id/retrofit"
+            android:id="@+id/retrofit_radio_btn"
             android:text="@string/retrofit_radio_text"
             style="@style/radio_style"
-            android:onClick="@{(v)->viewModel.setUrl(2)}"
+
              />
+        <RadioButton
+            android:id="@+id/other_link_radio_btn"
+            android:text="@string/radio_other_file"
+            style="@style/radio_style"
 
 
+          />
     </RadioGroup>
-
+<EditText
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/other_link_et"
+    android:hint="@string/file_link_hint"
+    android:padding="8dp"
+    android:text="@={viewModel.customUrl}"
+    android:layout_marginEnd="16dp"
+    android:layout_marginStart="16dp"
+    android:inputType="textUri" />
 
     <com.udacity.uicomponents.LoadingButton
         android:id="@+id/custom_button"
         android:layout_width="0dp"
         android:layout_height="60dp"
         android:layout_margin="20dp"
-
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/radio_group"
+        app:layout_constraintTop_toBottomOf="@id/other_link_et"
         app:loading_btn_text="@string/button_name"
         app:loading_btn_text_progress="@string/button_loading"
         app:loading_btn_text_done="@string/button_done"
         app:loading_btn_text_size="20sp"
         app:loading_btn_circle_color="@color/white"
-
-
+        app:loading_btn_done_color="@color/download_success"
         app:layout_constraintVertical_bias="1.0" />
 
 </androidx.constraintlayout.motion.widget.MotionLayout>

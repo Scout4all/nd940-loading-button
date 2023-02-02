@@ -10,7 +10,7 @@
 
     <string name="button_name">Click me</string>
     <string name="button_loading">We are loading </string>
-    <string name="button_done">Downloaded</string>
+    <string name="button_done">Finished / Click me to download</string>
     <string name="title_activity_detail">DetailActivity</string>
     <string name="glide_radio_text">Glide - image loading library by Bump Tech</string>
     <string name="load_app_radio_text">Load App - Current Repository By Udacity</string>
@@ -19,5 +19,10 @@
     <string name="notification_channel_id">app_download_channel</string>
     <string name="notification_channel_name" translatable="true">Download Lib</string>
     <string name="channel_description">"download app  notification "</string>
-    <string name="notification_action">Do Actions</string>
+    <string name="notification_action">Show Details</string>
+    <string name="radio_other_file">Other File</string>
+    <string name="file_link_hint">File Link</string>
+    <string name="download_status">Download Status:</string>
+    <string name="file_name">File Name:</string>
+    <string name="back">Back</string>
 </resources>

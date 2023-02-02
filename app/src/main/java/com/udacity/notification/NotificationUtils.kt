@@ -1,6 +1,5 @@
 package com.udacity.notification
 
-import android.app.Application
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
@@ -9,14 +8,15 @@ import android.content.Intent
 import android.graphics.BitmapFactory
 import android.os.Build
 import androidx.core.app.NotificationCompat
-import com.udacity.MainActivity
+import com.udacity.DetailActivity
 import com.udacity.R
-import com.udacity.reciever.SnoozeReceiver
 
-private val NOTIFICATION_ID = 0
 private val REQUEST_CODE = 0
+private val NOTIFICATION_ID = 0
+private val FLAGS=0
 
-fun NotificationManager.sendNotification(messageBody: String, applicationContext: Application, type : Int) {
+
+fun NotificationManager.sendNotification( applicationContext: Context, status: String,fileName :String,fileIndex : Int ) {
 
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
         // Create the NotificationChannel
@@ -32,49 +32,47 @@ fun NotificationManager.sendNotification(messageBody: String, applicationContext
         notificationManager.createNotificationChannel(mChannel)
     }
 
-    val contentIntent = Intent(applicationContext, MainActivity::class.java)
-    val pendingIntent = PendingIntent.getActivity(
-        applicationContext,
-        NOTIFICATION_ID,
-        contentIntent,
-        PendingIntent.FLAG_UPDATE_CURRENT
+    val contentIntent = Intent(applicationContext, DetailActivity::class.java)
+    contentIntent.putExtra("status",status)
+    contentIntent.putExtra("fileName",fileName)
+    contentIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+    contentIntent.putExtra("NOTIFICATION_ID", NOTIFICATION_ID)
 
-    )
-
-    val snoozeIntent = Intent(applicationContext, SnoozeReceiver::class.java)
-    val snoozeReceiverPendingIntent : PendingIntent = PendingIntent.getBroadcast(
+    val pendingIntent = PendingIntent.getActivity (
         applicationContext,
         REQUEST_CODE,
-        snoozeIntent,
-        PendingIntent.FLAG_ONE_SHOT
-    )
+        contentIntent,
+        PendingIntent.FLAG_CANCEL_CURRENT)
 
-    var packagePicture = BitmapFactory.decodeResource(
-        applicationContext.resources,
-        R.drawable.baseline_cloud_download_24
-    )
 
-    when(type){
+
+    val packagePicture =  when(fileIndex){
         0->{
-            packagePicture = BitmapFactory.decodeResource(
+            BitmapFactory.decodeResource(
                 applicationContext.resources,
                 R.drawable.glide_logo
             )
 
         }
         1 ->{
-            packagePicture = BitmapFactory.decodeResource(
+            BitmapFactory.decodeResource(
                 applicationContext.resources,
                 R.drawable.udacity
             )
 
         }
         2 ->{
-            packagePicture = BitmapFactory.decodeResource(
+             BitmapFactory.decodeResource(
                 applicationContext.resources,
                 R.drawable.retrofit2_getting_started
             )
 
+        }
+        else ->{
+            BitmapFactory.decodeResource(
+                applicationContext.resources,
+                R.drawable.baseline_cloud_download_24
+            )
         }
 
     }
@@ -90,13 +88,15 @@ fun NotificationManager.sendNotification(messageBody: String, applicationContext
         .setContentTitle(applicationContext.getString(
             R.string.notification_title
         ))
-        .setContentText(messageBody)
+        .setContentText(status)
             .setStyle(bigPictureStyle)
         .setLargeIcon(packagePicture)
-        .setContentIntent(pendingIntent)
         .setAutoCancel(true)
         .addAction(R.drawable.abc_vector_test,
             applicationContext.getText(R.string.notification_action),
-            snoozeReceiverPendingIntent)
+            pendingIntent)
     notify(NOTIFICATION_ID,builder.build())
+}
+fun NotificationManager.cancelNotifications(){
+    cancelAll()
 }
