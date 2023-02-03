@@ -33,6 +33,7 @@ Fail
 - pass file name and status to detail activity
 - use motion ui in detail activity and start animation prgramatly from activity , also us emotion ui main activity and detect radio button clicks to animate
 - add custom field for other url
+- useing view model and binding to pass data between view and model
 
 
 ## Screenshots
